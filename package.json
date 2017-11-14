@@ -1,3 +1,33 @@
-{"scripts": {
-	"test": "mocha" 
-}}
+{
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "name": "tournament",
+  "description": "Round Robin tournament builder made with node js",
+  "version": "1.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "node-inspector": "^1.1.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joelasaur/Tournament.git"
+  },
+  "keywords": [
+    "round",
+    "robin",
+    "roundrobin",
+    "tournament",
+    "javascript",
+    "nodejs",
+    "ajax"
+  ],
+  "author": "Joel Whalen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joelasaur/Tournament/issues"
+  },
+  "homepage": "https://github.com/Joelasaur/Tournament#readme"
+}
