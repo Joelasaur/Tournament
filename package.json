@@ -1,7 +1,7 @@
 {
   "scripts": {
     "test": "mocha",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "name": "tournament",
   "description": "Round Robin tournament builder made with node js",
@@ -10,7 +10,9 @@
   "dependencies": {
     "node-inspector": "^1.1.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Joelasaur/Tournament.git"

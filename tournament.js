@@ -1,8 +1,10 @@
 class Tournament {
+	//teamCount is an int
+	//teamNames is an array of strings
 	constructor(teamCount, teamNames) {
 		this.teamCount = teamCount;
 		this.teamNames = teamNames;
-		this.gameResults = this.initResults(teamCount, teamCount);
+		this.gameResults = [];
 	}
 	// Adapted this method from stackoverflow: 
 	// https://stackoverflow.com/questions/966225/how-can-i-create-a-two-dimensional-array-in-javascript/966938#966938
@@ -17,7 +19,12 @@ class Tournament {
 				arr[length - 1 - i] = this.initResults.apply(this, args);
 			}
 		}
+		this.gameResults = arr;
 		return arr;
+	}
+
+	setGameResults(results) {
+		this.gameResults = results;
 	}
 
 	gridDimensions() {
@@ -25,8 +32,6 @@ class Tournament {
 	}
 
 	toggleResultsAt(row, column) {
-		row--;
-		column--;
 		if (row == column) {
 			this.gameResults[row][column] = -1;
 			return;
