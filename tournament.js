@@ -38,8 +38,44 @@ class Tournament {
 		}
 		else if (this.gameResults[row][column] == 3){
 			this.gameResults[row][column] = 0;
+			return;
 		}
 		this.gameResults[row][column]++;
+	}
+
+	sortResults(results) {
+		//Associate each result value with the proper team name
+		var resultsByTeamName = {};
+		for (var i = 0; i < results.length; i++) {
+			resultsByTeamName[results[i]] = this.teamNames[i]
+		}
+
+		//Now sort and return the new team name list
+		results.sort(function(a, b) {
+			return b - a; //Descending order
+		});
+		console.log(results);
+		var sortedNames = [];
+		for (var i = 0; i < results.length; i++) {
+			sortedNames.push(resultsByTeamName[results[i]]);
+		}
+		return sortedNames;
+
+	}
+
+	getWinOrder() {
+		var results = new Array(this.teamCount).fill(0); //index matches this.teamNames
+		for (var i = 0; i < this.gameResults.length; i++) {
+			for (var j = 0; j < this.gameResults[i].length; j++) {
+				if (this.gameResults[i][j] == 1) { //win
+					results[i]++;
+				}
+				else if (this.gameResults[i][j] == 3) { //draw
+					results[i] += 0.5;
+				}
+			}
+		}
+		return this.sortResults(results);
 	}
 }
 module.exports = Tournament;

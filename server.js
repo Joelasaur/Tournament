@@ -22,16 +22,24 @@ server.use("/initTournament", function(req, res) {
 	res.setHeader("Content-Type", "application/json");
 	RoundRobin = new Tournament(teamNames.length, teamNames);
 	RoundRobin.initResults(teamNames.length, teamNames.length);
+	console.log(RoundRobin);
 	res.write(JSON.stringify(RoundRobin.gameResults));
 	res.end();
 });
 
 server.use("/toggleResultsAt", function(req, res) {
 	res.setHeader("Content-Type", "application/json");
-	var row = req.body.cell[0];
-	var column = req.body.cell[1];
+	var row = req.body.tablecell[0];
+	var column = req.body.tablecell[1];
 	RoundRobin.toggleResultsAt(row, column);
 	res.write(JSON.stringify(RoundRobin.gameResults));
+	res.end();
+});
+
+server.use("/getWinOrder", function(req, res) {
+	res.setHeader("Content-Type", "application/json");
+	var winOrder = RoundRobin.getWinOrder();
+	res.write(JSON.stringify(winOrder));
 	res.end();
 });
 

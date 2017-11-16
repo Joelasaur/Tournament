@@ -3,6 +3,7 @@
 
 var teamList = [];
 var gameData = [];
+var states = ["Unplayed", "Win", "Loss", "Draw"];
 
 function updateTeamList(teamNameArray) {
 	$("#teamList").html(""); //clear out all HTML inside this element.
@@ -10,6 +11,14 @@ function updateTeamList(teamNameArray) {
 		$("#teamList").append("<li>"+teamNameArray[i]+"</li>");
 	}
 	teamList = teamNameArray;
+}
+
+function updateWinners(winOrder) {
+	console.log(winOrder);
+	$("#winOrder").html("");
+	for(var i = 0; i < winOrder.length; i++) {
+		$("#winOrder").append("<li>"+winOrder[i]+"</li>");
+	}
 }
 
 // Adapted this method from stackoverflow:
@@ -46,7 +55,6 @@ function runTournament() {
 	$("#submitName").click(function() {
 		// $.post(URL, JSObject to send to server, callback(dataBackFromServer))
 		var name = $("#teamNameInput").val();
-		console.log(name);
 		$.post("/addTeam", {teamNameInput: name}, updateTeamList);
 	});
 
@@ -61,9 +69,15 @@ function runTournament() {
 	// https://stackoverflow.com/questions/15446093/why-jquery-selector-doesnt-work-for-newly-replaced-tag
 	$("#tournament").on("click", "#gameTable tr td", function(event) {
 		var gameCell = [$(this).data("rowIndex"), $(this).data("columnIndex")];
-		console.log("Cell located at: " + gameCell + " has this state: " + $(this).data("gameState"));
-		$.post("/toggleResultsAt", {cell: gameCell}, updateTable);
+		var cell = this;
+		$.post("/toggleResultsAt", {tablecell: gameCell}, updateTable).done(function() {
+			$(cell).text(states[$(cell).data("gameState")]);
+		});
 	})
+
+	$("#submitResults").click(function() {
+		$.post("/getWinOrder", updateWinners);
+	});
 }
 
 $(runTournament);
